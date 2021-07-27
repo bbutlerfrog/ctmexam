@@ -16,3 +16,19 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group([
+    'prefix' => 'api/v1',
+], function () use ($router) {
+    $router->get('/users', 'UsersController@index');
+    $router->get('/users/{id}', 'UsersController@show');
+    $router->post('/users', 'UsersController@store');
+    $router->patch('/users/{id}', 'UsersController@update');
+    $router->delete('/users/{id}', 'UsersController@destroy');
+
+    //bonus points, and two other "bonus" endpoints
+    $router->post('/users/optout/{id}', 'UsersController@optout');
+    $router->get('/users/optedin', 'UsersController@optedin');
+    $router->get('/users/optedout', 'UsersController@optedout');
+});
+
